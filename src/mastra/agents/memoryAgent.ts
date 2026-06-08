@@ -51,7 +51,7 @@ export const memoryAgent = new Agent({
   model: oLLM,
   inputProcessors: [
     new PromptInjectionDetector({
-      model: geminiModelLLM,
+      model: oLLM,
       detectionTypes: ['injection', 'jailbreak', 'system-override'],
       threshold: 0.8,
       strategy: 'block',
