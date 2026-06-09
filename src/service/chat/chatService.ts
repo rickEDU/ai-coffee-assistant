@@ -14,7 +14,7 @@ export async function chatMessageService(id: string, message: string): Promise<s
   try {  
     const response = await coffeeAgent.generate( ` Usuário ID: ${id} Mensagem: ${message} `, );
     await createChatMessage(id, message, response.text);
-    void extractFactsAgentResponse(id, message);
+    void extractFactsAndPersist(id, message);
 
     return response.text;
   } catch (e: any) {
@@ -39,7 +39,7 @@ export async function chatHistoryService(id: string) {
   }
 }
 
-async function extractFactsAgentResponse(id: string, message: string) {
+async function extractFactsAndPersist(id: string, message: string) {
   try {
     const facts = await memoryAgent.generateLegacy(` Usuário ID: ${id} Mensagem: ${message} `, );
     if (facts.text) {
