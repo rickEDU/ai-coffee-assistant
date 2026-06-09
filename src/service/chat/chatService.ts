@@ -42,8 +42,8 @@ export async function chatHistoryService(id: string) {
 async function extractFactsAgentResponse(id: string, message: string) {
   try {
     const facts = await memoryAgent.generateLegacy(` Usuário ID: ${id} Mensagem: ${message} `, );
-    console.log(TAG, 'facts', facts);
     if (facts.text) {
+      console.log(TAG, 'facts', facts.text);
       const parsedFacts = JSON.parse(facts.text)?.facts;
       if (parsedFacts.length) {
         const factsToStore = parsedFacts.map((fact: { type: string; item: string; category: string }) => ({
